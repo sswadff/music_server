@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/music")
@@ -22,20 +20,16 @@ public class PlayerController {
     @Autowired
     FileUrlMaker fileUrlMaker;
 
-
     @RequestMapping("/public")
-    public String getPublicSongList() {
-        List<File> list = fileUrlMaker.getAllFile();
-        List<Map<String, String>> musicList = new ArrayList<>();
-
-        for (File file : list) {
-            Music music = new Music(file);
-            Map musicObj = new HashMap();
-            musicObj.put("id", list.indexOf(file));
-            musicObj.put("name", music.getName());
-            musicObj.put("url", music.getUrl());
-            musicList.add(musicObj);
-        }
-        return JSON.toJSONString(musicList);
+    public String getPublicSongList(String userid) {
+        if (userid.equals("124001")) {
+            List<File> list = fileUrlMaker.getAllFile();
+            List<Music> musicList = new ArrayList<>();
+            for (File file : list) {
+                Music music = new Music(file);
+                musicList.add(music);
+            }
+            return JSON.toJSONString(musicList);
+        } else return null;
     }
 }
