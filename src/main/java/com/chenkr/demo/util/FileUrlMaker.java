@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public class FileUrlMaker {
-    private static String baseUrl = "http://192.168.200.128:8081/file";
+    private static String baseUrl = "http://192.168.200.128:8888/file";
     private static String src = "./target/classes/static/file";
 
     public List<File> getAllFile() {
