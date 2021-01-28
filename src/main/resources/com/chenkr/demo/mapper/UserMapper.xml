@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenkr.demo.mapper.UserMapper">
+    <!--  User ResultMap  -->
+    <resultMap id="UserResultMap" type="User">
+        <result property="userID" column="user_id"></result>
+        <result property="userName" column="user_name"></result>
+        <result property="userPass" column="user_pass"></result>
+        <collection property="friends" column="user_id" ofType="User" select="selectUserFriend"></collection>
+        <collection property="mySongList" column="user_id" ofType="SongList" select="selectUserSongList">
+        </collection>
+    </resultMap>
+
+    <!--  Friend ResultMap  -->
+    <resultMap id="FriendResultMap" type="User">
+        <result property="userID" column="user_id"></result>
+        <result property="userName" column="user_name"></result>
+        <result property="userPass" column="user_pass"></result>
+        <collection property="property" column="songListID" select="selectUserSongList"></collection>
+    </resultMap>
+
+    <!--  SongList ResultMap  -->
+    <resultMap id="SongListMap" type="SongList">
+        <result property="songListID" column="song_list_id"></result>
+        <result property="songListName" column="song_list_name"></result>
+        <result property="iconURL" column="icon_url"></result>
+        <collection property="songs" column="song_list_id" ofType="Song" select="selectSongInSongList">
+        </collection>
+    </resultMap>
+
+    <!--  Song ResultMap  -->
+    <resultMap id="SongMap" type="Song">
+        <result property="songID" column="song_id"></result>
+        <result property="songName" column="song_name"></result>
+        <result property="URL" column="url"></result>
+        <result property="iconURL" column="icon_url"></result>
+    </resultMap>
+
+    <select id="selectUserByID" resultMap="UserResultMap">
+        Select *
+        from ckr_user
+        where user_id = #{userID}
+    </select>
+
+    <select id="selectUserFriend" resultType="User" resultMap="FriendResultMap">
+        Select cu.*
+        from ckr_user_friend cuf
+                 left join ckr_user cu
+                           on cuf.friend_id = cu.user_id
+        where cuf.user_id = #{userID}
+    </select>
+    <select id="selectUserSongList" resultType="SongList" resultMap="SongListMap">
+        Select csl.*
+        from ckr_user_songlist cusl
+                 left join ckr_songlist csl on csl.song_list_id = cusl.song_list_id
+        where cusl.user_id = #{userID}
+    </select>
+
+    <select id="selectSongInSongList" resultType="Song" resultMap="SongMap">
+        Select cs.*
+        from ckr_list_song cls
+                 left join ckr_song cs on cls.song_id = cs.song_id
+        where cls.song_list_id = #{songListID}
+    </select>
+
+    <select id="selectUserByLoginParams" resultType="User" resultMap="UserResultMap">
+        SELECT cu.*
+        from ckr_user cu where
+        <choose>
+            <when test="userName!=null">
+                cu.user_name = #{userName}
+            </when>
+            <when test="email!=null">
+                cu.email = #{email}
+            </when>
+            <otherwise>
+                cu.user_id = -1
+            </otherwise>
+        </choose>
+        and cu.user_pass=#{userPass};
+    </select>
+
+
+</mapper>

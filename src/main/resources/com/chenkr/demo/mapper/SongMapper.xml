@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenkr.demo.mapper.SongMapper">
+
+    <select id="selectUserSongList" resultType="SongList">
+        Select csl.*
+        from ckr_songlist csl
+                 left join ckr_user_songlist cusl on cusl.song_list_id = csl.song_list_id
+        where cusl.user_id = #{userID}
+    </select>
+
+    <select id="selectSongBySongListID" resultType="Song">
+        Select cs.*
+        from ckr_song cs
+                 left join ckr_list_song cls on cls.song_id = cs.song_id
+        where cls.song_list_id = #{songListID}
+    </select>
+
+    <delete id="deleteSongListBySongListID">
+        delete
+         from ckr_songlist csl where csl.song_list_id =
+        #{songListID};
+    </delete>
+
+</mapper>

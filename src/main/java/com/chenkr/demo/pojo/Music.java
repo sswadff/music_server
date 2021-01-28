@@ -13,7 +13,7 @@ public class Music {
     public String url;
     @JsonIgnore
     public File file;
-    
+
     public Music(File file) {
         if (file.isDirectory() || (!file.getName().endsWith(".mp3"))) {
             try {

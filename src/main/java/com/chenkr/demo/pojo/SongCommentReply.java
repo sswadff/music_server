@@ -1,5 +1,8 @@
 package com.chenkr.demo.pojo;
 
+import lombok.Data;
+
+@Data
 public class SongCommentReply {
     private String songID;
     private String commentID;
