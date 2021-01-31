@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) {
-        return null;
+    public boolean register(User user) {
+        return userMapper.insertUserByRegister(user);
     }
 
 

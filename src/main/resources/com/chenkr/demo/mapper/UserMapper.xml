@@ -80,5 +80,9 @@
         and cu.user_pass=#{userPass};
     </select>
 
+    <insert id="insertUserByRegister" parameterType="User">
+        insert into ckr_user
+        values (0, #{userName}, #{userPass}, #{email}, #{introduction})
+    </insert>
 
 </mapper>

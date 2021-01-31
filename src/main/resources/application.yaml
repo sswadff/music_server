@@ -6,6 +6,18 @@ mybatis:
   type-aliases-package: com.chenkr.demo.pojo
 
 spring:
+  redis:
+    host: localhost
+    port: 6379
+    password: sswadff5201314
+    database: 101
+    jedis:
+      pool:
+        max-active: 128
+        max-idle: 256
+        max-wait: -1ms
+        min-idle: 0
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     username: Asatos
@@ -15,5 +27,6 @@ spring:
   jpa:
     show-sql: true
     database: mysql
+
 
 debug: false

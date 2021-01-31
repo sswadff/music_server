@@ -19,7 +19,7 @@ public class FileUrlMaker {
 
     public String makeUrl(File file) {
         StringBuilder physicsPath = new StringBuilder(file.getAbsolutePath());
-        physicsPath.replace(0, physicsPath.lastIndexOf("/file")+5, baseUrl);
+        physicsPath.replace(0, physicsPath.lastIndexOf("/file") + 5, baseUrl);
         return physicsPath.toString();
     }
 
@@ -32,7 +32,7 @@ public class FileUrlMaker {
             result.add(new StringBuilder(tmp.getAbsolutePath()));
         }
         for (StringBuilder builder : result) {
-            builder.replace(0, 62, baseUrl);
+            builder.replace(0, builder.lastIndexOf("/file") + 5, baseUrl);
         }
         return result;
     }

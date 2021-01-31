@@ -9,8 +9,8 @@ import java.io.File;
 
 @Data
 public class Music {
-    public String name;
-    public String url;
+    public String songName;
+    public String URL;
     @JsonIgnore
     public File file;
 
@@ -22,8 +22,8 @@ public class Music {
                 e.printStackTrace();
             }
         }
-        name = file.getName();
-        url = new FileUrlMaker().makeUrl(file);
+        songName = file.getName();
+        URL = new FileUrlMaker().makeUrl(file);
     }
 
     public Music() {

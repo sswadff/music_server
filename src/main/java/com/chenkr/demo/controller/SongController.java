@@ -1,5 +1,6 @@
 package com.chenkr.demo.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.chenkr.demo.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,16 @@ public class SongController {
     SongService songService;
 
     @RequestMapping("/deleteSongList")
-    public Map<String, Object> deleteSongList(String songListID) {
+    public String deleteSongList(String songListID) {
         Map resultMap = new HashMap();
         resultMap.put("success", songService.removeSongListBySongListID(songListID));
-        return resultMap;
+        return JSON.toJSONString(resultMap);
+    }
+
+    @RequestMapping("/getUserSongList")
+    public String getUserSongList(String userID) {
+
+        return null;
     }
 
 }
